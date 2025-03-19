@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize form elements from sample JSON data
     const initialFormElements = [
         {
             "id": "c0ac49c5-871e-4c72-a878-251de465e6b4",
@@ -26,22 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    const forms = document.getElementById('formElements');
-    const theme = document.getElementById('theme');
+    const formElementsContainer = document.getElementById('formElements');
+    const themeToggle = document.getElementById('themeToggle');
     const modal = document.getElementById('previewModal');
     const closeModal = document.querySelector('.close');
-    const copybtn = document.getElementById('copyHtml');
-    const preview = document.getElementById('preview');
+    const copyHtmlBtn = document.getElementById('copyHtml');
+    const previewContainer = document.getElementById('previewContainer');
 
-    // Global state
     let formElements = [];
 
-    // Load initial data
     formElements = initialFormElements;
     renderFormElements();
 
-    // Sortable functionality
-    const sortable = new Sortable(forms, {
+    const sortable = new Sortable(formElementsContainer, {
         animation: 150,
         ghostClass: 'ghost',
         handle: '.drag-handle',
@@ -50,26 +46,22 @@ document.addEventListener('DOMContentLoaded', function() {
             const fromIndex = evt.oldIndex;
             const toIndex = evt.newIndex;
             
-            // Update the formElements array
             const element = formElements.splice(fromIndex, 1)[0];
             formElements.splice(toIndex, 0, element);
         }
     });
 
-    // Theme toggle
-    theme.addEventListener('change', function() {
+    themeToggle.addEventListener('change', function() {
         document.body.classList.toggle('dark-mode', this.checked);
     });
 
-    // Add event listeners for element buttons
     document.getElementById('addInput').addEventListener('click', () => addNewElement('input'));
     document.getElementById('addSelect').addEventListener('click', () => addNewElement('select'));
     document.getElementById('addTextarea').addEventListener('click', () => addNewElement('textarea'));
     document.getElementById('addCheckbox').addEventListener('click', () => addNewElement('checkbox'));
     document.getElementById('saveForm').addEventListener('click', saveForm);
-    document.getElementById('prev').addEventListener('click', prev);
+    document.getElementById('previewForm').addEventListener('click', previewForm);
 
-    // Close modal
     closeModal.addEventListener('click', function() {
         modal.style.display = 'none';
     });
@@ -80,9 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Copy HTML button
-    copybtn.addEventListener('click', function() {
-        const htmlContent = preview.innerHTML;
+    copyHtmlBtn.addEventListener('click', function() {
+        const htmlContent = previewContainer.innerHTML;
         navigator.clipboard.writeText(htmlContent).then(function() {
             alert('HTML copied to clipboard');
         }, function(err) {
@@ -90,7 +81,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Functions
     function generateUUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -116,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderFormElements() {
-        forms.innerHTML = '';
+        formElementsContainer.innerHTML = '';
         
         formElements.forEach((element, index) => {
             const elementDiv = document.createElement('div');
@@ -148,11 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
             elementHeader.appendChild(elementActions);
             elementDiv.appendChild(elementHeader);
             
-            // Element-specific content
             const contentDiv = document.createElement('div');
             contentDiv.className = 'element-content';
             
-            // Label input
             const labelGroup = document.createElement('div');
             labelGroup.className = 'input-group';
             
@@ -168,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             contentDiv.appendChild(labelGroup);
             
-            // Type-specific options
             if (element.type === 'input' || element.type === 'textarea') {
                 const placeholderGroup = document.createElement('div');
                 placeholderGroup.className = 'input-group';
@@ -223,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             elementDiv.appendChild(contentDiv);
-            forms.appendChild(elementDiv);
+            formElementsContainer.appendChild(elementDiv);
         });
     }
 
@@ -261,10 +248,10 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Form saved successfully! Check the console for JSON data.');
     }
 
-    function prev() {
-        preview.innerHTML = '';
+    function previewForm() {
+        previewContainer.innerHTML = '';
         
-        const prev = document.createElement('form');
+        const previewForm = document.createElement('form');
         
         formElements.forEach(element => {
             const formGroup = document.createElement('div');
@@ -322,21 +309,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 formGroup.appendChild(checkboxContainer);
             }
             
-            prev.appendChild(formGroup);
+            previewForm.appendChild(formGroup);
         });
         
-        const submitbtn = document.createElement('button');
-        submitbtn.type = 'button';
-        submitbtn.textContent = 'Submit';
-        submitbtn.style.padding = '10px 15px';
-        submitbtn.style.backgroundColor = '#4a6ee0';
-        submitbtn.style.color = 'white';
-        submitbtn.style.border = 'none';
-        submitbtn.style.borderRadius = '4px';
-        submitbtn.style.cursor = 'pointer';
+        const submitButton = document.createElement('button');
+        submitButton.type = 'button';
+        submitButton.textContent = 'Submit';
+        submitButton.style.padding = '10px 15px';
+        submitButton.style.backgroundColor = '#4a6ee0';
+        submitButton.style.color = 'white';
+        submitButton.style.border = 'none';
+        submitButton.style.borderRadius = '4px';
+        submitButton.style.cursor = 'pointer';
         
-        prev.appendChild(submitbtn);
-        preview.appendChild(prev);
+        previewForm.appendChild(submitButton);
+        previewContainer.appendChild(previewForm);
         
         modal.style.display = 'block';
     }
