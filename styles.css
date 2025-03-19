@@ -1,0 +1,277 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --primary-color: #4a6ee0;
+    --secondary-color: #e0e0e0;
+    --border-color: #ccc;
+    --card-bg: #fff;
+    --hover-color: #f0f0f0;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --modal-bg: rgba(0, 0, 0, 0.5);
+    --danger-color: #e74c3c;
+}
+
+.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #f5f5f5;
+    --primary-color: #5d83ff;
+    --secondary-color: #444;
+    --border-color: #555;
+    --card-bg: #2a2a2a;
+    --hover-color: #333;
+    --shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    --modal-bg: rgba(0, 0, 0, 0.7);
+    --danger-color: #ff6b6b;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+main {
+    display: flex;
+    gap: 20px;
+}
+
+.sidebar {
+    flex: 0 0 250px;
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.sidebar h2 {
+    margin-bottom: 15px;
+}
+
+.element-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn:hover {
+    background-color: var(--hover-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    opacity: 0.9;
+}
+
+.designer-area {
+    flex: 1;
+}
+
+.form-elements {
+    background-color: var(--card-bg);
+    min-height: 500px;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: var(--shadow);
+}
+
+.form-element {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.form-element:hover {
+    box-shadow: var(--shadow);
+}
+
+.element-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.element-title {
+    font-weight: bold;
+}
+
+.element-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.element-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.element-actions button:hover {
+    color: var(--primary-color);
+}
+
+.delete-btn:hover {
+    color: var(--danger-color) !important;
+}
+
+.form-element .drag-handle {
+    cursor: move;
+    margin-right: 10px;
+}
+
+.form-element input,
+.form-element select,
+.form-element textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.option-list {
+    margin-top: 10px;
+}
+
+.option-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.option-item span {
+    flex: 1;
+    padding: 5px;
+}
+
+.add-option {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--modal-bg);
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    box-shadow: var(--shadow);
+}
+
+.close {
+    color: var(--text-color);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--primary-color);
+}
+
+#preview {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+.ghost {
+    opacity: 0.5;
+    background-color: var(--secondary-color);
+}
+
+.form-element.dragging {
+    opacity: 0.5;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    width: auto;
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        flex: 1;
+    }
+}
